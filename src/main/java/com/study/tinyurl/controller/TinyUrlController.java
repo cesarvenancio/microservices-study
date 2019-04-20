@@ -1,16 +1,22 @@
 package com.study.tinyurl.controller;
 
+import java.net.URI;
+import java.util.Objects;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.study.tinyurl.model.Urls;
 import com.study.tinyurl.resource.UrlResource;
 import com.study.tinyurl.service.TinyUrlService;
 
@@ -21,9 +27,16 @@ public class TinyUrlController {
     private TinyUrlService tinyUrlService;
     
     @GetMapping("{tinyUrl}")
-    public void tinyRedirect(@PathVariable String tinyUrl, HttpServletResponse response) {
-        response.setHeader("Location", tinyUrlService.getLongUrl(tinyUrl));
-        response.setStatus(HttpStatus.TEMPORARY_REDIRECT.value());
+    public ResponseEntity<String> tinyRedirect(@PathVariable String tinyUrl, HttpServletResponse response) {
+    	Urls url = tinyUrlService.getLongUrl(tinyUrl);
+    	if(Objects.isNull(url)) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setLocation(URI.create(url.getLongUrl()));
+    	
+    	return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
     
     @PostMapping(value = "/")
@@ -32,8 +45,13 @@ public class TinyUrlController {
     }
     
     @GetMapping("/getUrl/{shortUrl}")
-    public String getUrlFromTiny(@PathVariable(value="shortUrl") String shortUrl) {
-        return tinyUrlService.getLongUrl(shortUrl);
+    public ResponseEntity<String> getUrlFromTiny(@PathVariable(value="shortUrl") String shortUrl) {
+        Urls url = tinyUrlService.getLongUrl(shortUrl);
+    	if(Objects.isNull(url)) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
+    	
+    	return new ResponseEntity<>(url.getLongUrl(), HttpStatus.OK);
     }
     
 }

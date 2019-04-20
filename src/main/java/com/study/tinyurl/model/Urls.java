@@ -1,9 +1,8 @@
 package com.study.tinyurl.model;
 
-import javax.persistence.Column;
+import java.util.Date;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,12 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "role")
-public class Url {
+@Table(name = "urls")
+public class Urls {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Integer id;
+    private String tiny;
     
+    private String longUrl;
+    private Date created;
 }

@@ -6,15 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UrlShortner {
 
     private static final char[] corpus = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
-    private static AtomicInteger urlCounter = new AtomicInteger(99999);
  
     /*
      * Note if seed is unique then generated base62 number will be unique as well
      * under load balance make sure this value is not same.
      */
-    public static final String getBase62From10(final long seed) {
-        int counter = urlCounter.getAndIncrement();
-
+    public static final String getBase62From10(final long counter) {
         String number = counter + "";
         
         char[] buf = new char[number.length()];
