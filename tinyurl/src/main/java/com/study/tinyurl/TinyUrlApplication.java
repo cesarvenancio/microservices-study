@@ -9,6 +9,10 @@ import org.springframework.cache.annotation.EnableCaching;
 public class TinyUrlApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TinyUrlApplication.class, args);
+    	
+    	int length = "epsxyyflvrrrxzvnoenvpegvuonodjoxfwdmcvwctmekpsnamchznsoxaklzjgrqruyzavshfbmuhdwwmpbkwcuomqhiyvuztwvq".length();
+    	
+    	System.out.println(length);
+    	System.out.println(549382313570l%length);
     }
 }
