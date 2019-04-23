@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.transaction.Transactional;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.study.tinyurl.model.Urls;
 import com.study.tinyurl.repository.UrlRepository;
+import com.study.tinyurl.resource.UrlResource;
 import com.study.tinyurl.util.UrlShortner;
 
 import lombok.NoArgsConstructor;
@@ -48,12 +48,18 @@ public class TinyUrlService {
     }
 
     @Cacheable(value = "url", unless="#result == null")
-    public Urls getLongUrl(String tiny) {
+    public UrlResource getLongUrl(String tiny) {
     	
     	if(Objects.isNull(urls.get(tiny))){
-    		return urlRepository.findByTiny(tiny);
+    	    Urls url = urlRepository.findByTiny(tiny);
+    	    
+    	    if(Objects.isNull(url)) {
+    	        return null;
+    	    }
+    	    
+    		return new UrlResource(url.getLongUrl());
     	}
     	
-        return urls.get(tiny);
+        return new UrlResource(urls.get(tiny).getLongUrl());
     }
 }
