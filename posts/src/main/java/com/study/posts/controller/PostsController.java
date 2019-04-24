@@ -3,6 +3,7 @@ package com.study.posts.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -40,7 +41,7 @@ public class PostsController {
     
     @PostMapping(value = "/")
     public PostsResource createPost(@Valid @RequestBody PostsResource postsResource) {
-        return postsService.createPost(postsResource);
+    	return postsService.createPost(postsResource);
     }
     
     @GetMapping(value = "/")
@@ -49,14 +50,20 @@ public class PostsController {
     }
     
     @GetMapping(value = "/{id}")
-    public PostsResource getPost(@PathVariable(value="id") Long id) {
-        return postsService.getPost(id);
+    public ResponseEntity<PostsResource> getPost(@PathVariable(value="id") Long id) {
+    	
+    	PostsResource postsResource = postsService.getPost(id);
+    	if (Objects.isNull(postsResource)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    	
+        return new ResponseEntity<>(postsResource , HttpStatus.OK);
     }
     
-    @DeleteMapping(value = "/}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<PostsResource> deletePost(@PathVariable(value="id") Long id) {
-        if (postsService.getPost(id) == null) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (Objects.isNull(postsService.getPost(id))) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
  
         postsService.deletePost(id);

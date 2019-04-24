@@ -19,13 +19,9 @@ import lombok.NoArgsConstructor;
 @Transactional
 public class PostsService {
 
+	@Autowired
 	private PostsRepository postsRepository;
 
-	@Autowired
-	public PostsService(PostsRepository postsRepository) {
-		this.postsRepository = postsRepository;
-	}
-	
 	public PostsResource createPost(PostsResource postsResource) {
 	    Posts post = new Posts(null, postsResource.getText(), new Date());
 	    
