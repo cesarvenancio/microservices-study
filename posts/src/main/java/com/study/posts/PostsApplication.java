@@ -9,10 +9,6 @@ import org.springframework.cache.annotation.EnableCaching;
 public class PostsApplication {
 
     public static void main(String[] args) {
-    	
-    	int length = "epsxyyflvrrrxzvnoenvpegvuonodjoxfwdmcvwctmekpsnamchznsoxaklzjgrqruyzavshfbmuhdwwmpbkwcuomqhiyvuztwvq".length();
-    	
-    	System.out.println(length);
-    	System.out.println(549382313570l%length);
+        SpringApplication.run(PostsApplication.class, args);
     }
 }
