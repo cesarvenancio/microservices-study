@@ -11,9 +11,9 @@
 	<description>Simple tinyurl project for study</description>
 
 	<parent>
-    	<groupId>com.study</groupId>
-    	<artifactId>microservices</artifactId>
-    	<version>1.0.0-SNAPSHOT</version>
+		<groupId>com.study</groupId>
+		<artifactId>microservices</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.study.tinyurl.resource.UrlResource;
 import com.study.tinyurl.service.TinyUrlService;
 
 @RestController
+@Validated
 public class TinyUrlController {
 
     @Autowired
@@ -35,7 +37,7 @@ public class TinyUrlController {
     	HttpHeaders headers = new HttpHeaders();
     	headers.setLocation(URI.create(url.getUrl()));
     	
-    	return new ResponseEntity<>(headers, HttpStatus.FOUND);
+    	return new ResponseEntity<>(headers, HttpStatus.TEMPORARY_REDIRECT);
     }
     
     @PostMapping(value = "/")
@@ -43,8 +45,8 @@ public class TinyUrlController {
         return new UrlResource(tinyUrlService.shortUrl(urlResource.getUrl()));
     }
     
-    @GetMapping("/getUrl/{shortUrl}")
-    public ResponseEntity<String> getUrlFromTiny(@PathVariable(value="shortUrl") String shortUrl) {
+    @GetMapping("/getUrl/{tinyUrl}")
+    public ResponseEntity<String> getUrlFromTiny(@PathVariable(value="tinyUrl") String shortUrl) {
         UrlResource url = tinyUrlService.getLongUrl(shortUrl);
     	if(Objects.isNull(url)) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
