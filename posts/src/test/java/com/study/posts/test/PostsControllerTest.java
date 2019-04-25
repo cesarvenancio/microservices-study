@@ -1,5 +1,6 @@
 package com.study.posts.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,6 +21,9 @@ import org.springframework.test.web.servlet.result.ContentResultMatchers;
 
 import com.study.posts.resource.PostsResource;
 import com.study.posts.service.PostsService;
+import com.study.posts.service.TinyUrlClient;
+
+import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -31,6 +35,9 @@ public class PostsControllerTest {
     
     @Autowired
     private MockMvc mockMvc;
+    
+    @Autowired
+    private TinyUrlClient tinyUrlClient;
     
     
     @Test
@@ -72,6 +79,11 @@ public class PostsControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.text").value(postResource.getText()));
+    }
+    
+    @Test
+    public void givenTinyUrlClient_whenGetTinyUrlIsCalled_thenReceivedATinyUrl() throws Exception {
+        assertEquals("http://www.google.com" ,tinyUrlClient.getTinyUrl("aaxx"));
     }
     
 }

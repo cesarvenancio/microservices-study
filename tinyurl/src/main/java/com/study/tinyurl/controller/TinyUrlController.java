@@ -40,11 +40,6 @@ public class TinyUrlController {
     	return new ResponseEntity<>(headers, HttpStatus.TEMPORARY_REDIRECT);
     }
     
-    @PostMapping(value = "/")
-    public UrlResource generateTinyUrl(@Valid @RequestBody UrlResource urlResource) {
-        return new UrlResource(tinyUrlService.shortUrl(urlResource.getUrl()));
-    }
-    
     @GetMapping("/getUrl/{tinyUrl}")
     public ResponseEntity<String> getUrlFromTiny(@PathVariable(value="tinyUrl") String shortUrl) {
         UrlResource url = tinyUrlService.getLongUrl(shortUrl);
