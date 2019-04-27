@@ -22,18 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.study.posts.resource.PostsResource;
 import com.study.posts.service.PostsService;
-import com.study.posts.service.TinyUrlClient;
 
 @RestController
 public class PostsController {
 
     private PostsService postsService;
-    private TinyUrlClient tinyUrlClient;
     
     @Autowired
-    public PostsController(PostsService postsService, TinyUrlClient tinyUrlClient) {
+    public PostsController(PostsService postsService) {
         this.postsService = postsService;
-        this.tinyUrlClient = tinyUrlClient;
     }
     
     @InitBinder  
@@ -71,11 +68,6 @@ public class PostsController {
  
         postsService.deletePost(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-    
-    @GetMapping(value = "/test")
-    public String test() {
-        return tinyUrlClient.getTinyUrl("aaxx");
     }
     
 }

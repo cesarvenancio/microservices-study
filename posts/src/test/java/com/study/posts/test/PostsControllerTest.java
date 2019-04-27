@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Date;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.ContentResultMatchers;
 
 import com.study.posts.resource.PostsResource;
 import com.study.posts.service.PostsService;
 import com.study.posts.service.TinyUrlClient;
-
-import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -38,7 +31,6 @@ public class PostsControllerTest {
     
     @Autowired
     private TinyUrlClient tinyUrlClient;
-    
     
     @Test
     public void givenPostExist_whenPostIsDeleted_thenNoContentIsReceived() throws Exception {
@@ -83,7 +75,7 @@ public class PostsControllerTest {
     
     @Test
     public void givenTinyUrlClient_whenGetTinyUrlIsCalled_thenReceivedATinyUrl() throws Exception {
-        assertEquals("http://www.google.com" ,tinyUrlClient.getTinyUrl("aaxx"));
+        assertEquals("http://www.google.com", tinyUrlClient.getTinyUrl("aaxx").getBody());
     }
     
 }
