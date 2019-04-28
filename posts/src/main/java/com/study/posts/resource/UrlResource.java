@@ -1,9 +1,9 @@
 package com.study.posts.resource;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.URL;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostsResource {
-
+public class UrlResource {
+    
+	@URL
 	@NotBlank
-	@Size(max = 200)
-	private String postText;
-	
-	private Date created;
+	@Size(max = 2084)
+    private String url;
 }

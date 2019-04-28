@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 public class TinyUrlService {
 
 	private UrlRepository urlRepository;
+	
     private static AtomicLong urlCounter = new AtomicLong(99999);
 
 	@Autowired

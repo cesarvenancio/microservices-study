@@ -27,6 +27,11 @@ public class TinyUrlController {
     @Autowired
     private TinyUrlService tinyUrlService;
     
+    @PostMapping(value = "/")
+    public UrlResource generateTinyUrl(@Valid @RequestBody UrlResource urlResource) {
+        return new UrlResource(tinyUrlService.shortUrl(urlResource.getUrl()));
+    }
+    
     @GetMapping("{tinyUrl}")
     public ResponseEntity<String> tinyRedirect(@PathVariable String tinyUrl, HttpServletResponse response) {
         UrlResource url = tinyUrlService.getLongUrl(tinyUrl);

@@ -23,7 +23,8 @@ public class PostsService {
 	private PostsRepository postsRepository;
 
 	public PostsResource createPost(PostsResource postsResource) {
-	    Posts post = new Posts(null, postsResource.getText(), new Date());
+		
+	    Posts post = new Posts(null, postsResource.getPostText(), new Date());
 	    
 	    post = postsRepository.save(post);
 	    

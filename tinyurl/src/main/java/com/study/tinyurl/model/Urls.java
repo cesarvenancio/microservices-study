@@ -23,5 +23,6 @@ public class Urls {
     
     @Column(name = "long_url")
     private String longUrl;
+    
     private Date created;
 }
