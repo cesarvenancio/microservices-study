@@ -19,7 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import com.study.posts.resource.PostsResource;
 import com.study.posts.resource.UrlResource;
 import com.study.posts.service.PostsService;
-import com.study.posts.service.TinyUrlClient;
+import com.study.posts.service.feign.TinyUrlClient;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -77,8 +77,8 @@ public class PostsControllerTest {
 	}
 
 	@Test
-	public void givenTinyUrlClient_whenGetTinyUrlIsCalled_thenReceivedATinyUrl() throws Exception {
-		assertEquals("http://www.google.com", tinyUrlClient.getTinyUrl("aaxx").getBody());
+	public void givenTinyUrlClient_whenGetTinyUrlIsOffline_thenReceivedSameUrlFromHystrix() throws Exception {
+		assertEquals("http://www.google.com", tinyUrlClient.generateTinyUrl(new UrlResource("http://www.google.com")).getUrl());
 	}
 
 }

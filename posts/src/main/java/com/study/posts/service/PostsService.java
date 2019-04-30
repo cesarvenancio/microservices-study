@@ -13,6 +13,7 @@ import com.study.posts.model.Posts;
 import com.study.posts.repository.PostsRepository;
 import com.study.posts.resource.PostsResource;
 import com.study.posts.resource.UrlResource;
+import com.study.posts.service.feign.TinyUrlClient;
 
 @Service
 @Transactional
